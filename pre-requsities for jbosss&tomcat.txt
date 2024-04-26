@@ -1,0 +1,41 @@
+PFB,  get this done on both server as per your requirement.
+
+1.  Jboss pre-requisites ->
+
+mount point : /jboss
+
+Size : 50GB
+
+user : jboss
+
+jboss user should be the owner of /jboss
+
+required sudo access to user.
+ 
+
+
+2. Apache Tomcat pre-requisites ->
+
+mount point : /tomcat
+
+Size : 50GB
+
+user : tomcatuser
+
+tomcatuser user should be the owner of /tomcat
+
+required sudo access to user.
+
+
+
+3. WAS  pre-requisites ->
+
+mount point : /wasnd
+
+Size : 50GB
+
+user : was_ims
+
+was_ims user should be the owner of /wasnd
+
+required sudo access to was_ims user.

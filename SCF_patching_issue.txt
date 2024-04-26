@@ -1,0 +1,15 @@
+SCF after patching
+ 10.90.85.77  
+Stop Services
+
+Take a backup of directory wmq.jmsra.rar present in the location of  /wasnd/IBM/WebSphere/AppServer/installedConnectors/ 
+
+Remove the following jar file from path of /wasnd/IBM/WebSphere/AppServer/installedConnectors/wmq.jmsra.rar/ 
+
+bcprov-jdk15on.jar
+
+bcpkix-jdk15on.jar 
+
+
+Resume Service .
+

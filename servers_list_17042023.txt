@@ -1,0 +1,44 @@
+for binaries commands 
+
+scp was_ims@10.80.130.36:/wasnd/software/WAS_FP_23/8.5.5-WS-WAS-FP023-part1.zip /wasnd/software/WAS_FP_23
+scp was_ims@10.80.130.36:/wasnd/software/IHS_FP_23/8.5.5-WS-WASSupplements-FP023-part1.zip /ihs/software/IHS_FP_23
+
+scp was_ims@10.80.130.36:/wasnd/software/IHS_FP_14/9.0.5-WS-IHSPLG-FP014.zip /ihs/Software/IHS_FP_14
+scp was_ims@10.80.130.36:/wasnd/software/WAS_FP_14/9.0.5-WS-WAS-FP014.zip /wasnd/software/WAS_FP_14
+
+
+
+
+./imcl install com.ibm.websphere.ND.v85_8.5.5023.20230116_1145 -repositories /wasnd/software/WAS_FP_23 -installationDirectory /wasnd/IBM/WebSphere/AppServer -acceptLicense -sP 
+
+./imcl install com.ibm.websphere.BASE.v85_8.5.5023.20230116_1145 -repositories /wasnd/software/WAS_FP_23 -installationDirectory /wasnd/IBM/WebSphere/AppServer -acceptLicense -sP 
+
+
+
+./imcl install com.ibm.websphere.ND.v90_9.0.5014.20221031_0911 -repositories /wasnd/Software/WAS_FP_14 -installationDirectory /wasnd/IBM/WebSphere/AppServer -acceptLicense -sP 
+
+
+./imcl install com.ibm.websphere.BASE.v90_9.0.5014.20221031_0911 -repositories /wasnd/software/WAS_FP_14 -installationDirectory /wasnd/IBM/WebSphere/AppServer -acceptLicense -sP 
+
+
+
+./imcl install com.ibm.websphere.IHS.v85_8.5.5023.20230116_1145 -repositories /ihs/software/IHS_FP_23/ -installationDirectory /ihs/IBM/HTTPServer/ -acceptLicense -sP 
+
+
+./imcl install com.ibm.websphere.PLG.v85_8.5.5023.20230116_1145 -repositories /ihs/software/IHS_FP_23/ -installationDirectory /ihs/IBM/WebSphere/Plugins/ -acceptLicense -sP 
+
+
+./imcl install com.ibm.websphere.IHS.v90_9.0.5014.20221031_0911 -repositories /ihs/Software/IHS_FP_14/ -installationDirectory /ihs/IBM/HTTPServer/ -acceptLicense -sP 
+
+./imcl install com.ibm.websphere.PLG.v90_9.0.5014.20221031_0911 -repositories /ihs/Software/IHS_FP_14/ -installationDirectory /ihs/IBM/WebSphere/Plugins/ -acceptLicense -sP 
+
+
+com.ibm.websphere.PLG.v90_9.0.5014.20221031_0911
+
+SSLProtocolDisable SSLv2 SSLv3 TLSv10 TLSv11
+SSLProtocolEnable TLSv12
+
+openssl s_client -connect 10.80.64.208:443 -tls1_2
+
+
+jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=newgendb.rblbank.com)(PORT=1526))(CONNECT_DATA=(SERVICE_NAME=racdb)))

@@ -1,0 +1,37 @@
+
+-------------we have to execute the below commands in appserver/bin --------
+
+./managesdk.sh –listAvailable
+
+./managesdk.sh –listEnabledProfileAll
+
+./managesdk.sh -enableProfile -profileName Dmgr01 -sdkname 1.8_64_bundled –enableServers
+
+after changes done take restart of dmgr.
+
+./managesdk.sh -enableProfile -profileName AppSrv01 -sdkname 1.8_64_bundled –enableServers
+
+before applying the changes in profiles level need to sync the node with dmgr then do changes and take restart of dmgr and apprsvr.
+
+./managesdk.sh -getNewProfileDefault
+
+./managesdk.sh -setNewProfileDefault -sdkname 1.8_64_bundled
+
+-------------we have to execute the below commands in appserver/bin & profile/bin level --------
+
+./managesdk.sh -getCommandDefault
+
+./managesdk.sh -setCommandDefault -sdkname 1.8_64_bundled 
+
+
+
+  ./managesdk.sh -enableProfile -profileName PayU -sdkname 1.8_64_bundled -enableServers
+   ./managesdk.sh -enableProfile -profileName RazorPay -sdkname 1.8_64_bundled -enableServers
+   ./managesdk.sh -enableProfile -profileName CardStatement -sdkname 1.8_64_bundled -enableServers
+   ./managesdk.sh -enableProfile -profileName RblUPIPay -sdkname 1.8_64_bundled -enableServers
+   ./managesdk.sh -enableProfile -profileName ccavenue -sdkname 1.8_64_bundled -enableServers
+
+
+./managesdk.sh -enableProfile -profileName ebankdev3 -sdkname 1.8_64_bundled –enableServers
+
+
