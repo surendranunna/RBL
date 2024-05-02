@@ -1,0 +1,75 @@
+-------------------------------------------Certificates-------------------------------------------
+https://www.ibm.com/docs/en/psfa/7.2.1?topic=interface-changing-default-certificates
+Use -san_dsnname in below commands to avoid not secure error
+ 
+list certificate inside kdb
+./gskcapicmd -cert -list -db /ihs/IBM/HTTPServer/SSL/key.kdb
+ 
+ 
+To check details
+./gskcapicmd -cert -details -label mbesbuat.rblbank.com -db /ihs/IBM/HTTPServer/SSL/key.kdb  
+ 
+Taker server.xml and trust.p12 backup
+SSL certificate and key management -> KeystoreCertificare -> NodeDefaultTruststore/Cell -> SignerCertificates ->Add-> add alias name and certificatepath(cert keep inside server)
+ 
+Creating kdb
+gskcmd -keydb -create -db key.kdb -pw password -stash
+ 
+Generating CSR
+gskcmd -certreq -create -db /ihs/IBM/HTTPServer/bin/key.kdb -label scfuat.rblbank.com -file /ihs/IBM/HTTPServer/Cert/scf.csr -size 2048 -sig_alg SHA1WithRSA -dn "CN=scfuat.rblbank.com,O=RBL Bank LTD,OU=IT,L=MUMBAI,ST=MAHARASHTRA,C=IN"
+ 
+Set Cert default 
+./gskcmd -cert -setdefault -db /ihs/IBM/HTTPServer/cert/key.kdb -pw password -label scfuat.rblbank.com
+ 
+Add Cert
+./gskcmd -cert -add -db /ihs/IBM/HTTPServer/cert/key.kdb -pw password -label scfuat.rblbank.com -file /ihs/IBM/HTTPServer/cert/certnew.cer
+ 
+Always add root certificate first, then add server certificate as default.
+ 
+To Extract
+./gskcmd  -cert -extract -label BFL_UAT -target /ihs/IBM/HTTPServer/BFL.crt -db /ihs/IBM/HTTPServer/SSL_BFL/key.kdb -pw rbl@123
+ 
+For moving inside jks key store
+keytool -importcert -alias ldapcert -file /wasnd/IBM/WebSphere/AppServer/cert/ROOT_CA.cer -keystore cacerts (default password for cacerts is "changeit")
+ 
+Convert .pem to .cer
+ 
+openssl x509 -outform der -in your-cert.pem -out your-cert.crt
+ 
+ 
+Generate CSR in Nginx
+ 
+openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+ 
+Keyout is Used to generate the CSR and later to secure and verify connections using the certificate.
+ 
+https://www.digicert.com/kb/csr-ssl-installation/nginx-openssl.htm
+ 
+Creating kdb
+ 
+keytool -genkey -alias mydomain -keyalg RSA -keystore KeyStore.jks -keysize 2048
+ 
+Generate CSR using keystore
+ 
+keytool -certreq -alias ssl -keystore keystore.jks -file javaappperfomance.csr -validity 999
+ 
+https://dzone.com/articles/keytool-commandutility-to-generate-a-keystorecerti
+ 
+ 
+Certificate Installation Tomcat
+ 
+https://sectigo.com/resource-library/install-certificates-apache-open-ssl
+ 
+Generate CSR in Tomcat
+ 
+https://www.digicert.com/kb/csr-ssl-installation/apache-openssl.htm
+ 
+ 
+Generating csr in keytool (IMPORTANT- alias name should be same)
+ 
+keytool -keystore /OGL_Share/keystore/clientkeystore.jks -genkey -alias client -keyalg RSA -keysize 2048
+ 
+keytool -keystore /OGL_Share/keystore/clientkeystore.jks -certreq -alias client -file /OGL_Share/keystore/client.csr
+ 
+ 
+Provide domain certificate to LB team with key. For key provide .kdb/.sth/.rdb file to server team.
